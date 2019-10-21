@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Render小试</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<!-- 顺序：注册一个组件，这个组件有模版，这个模版里又一个变量，变量的值通过父组件传递，然后根据变量的值，通过v-if命令显示对应的html标签内容，然后在父组件里使用这个组件，让子组件显示需要显示的内容。 -->
+		<div id="app">
+			<child :level="6">Hello world!</child>
+		</div>
+	</body>
+	
+	<!-- 组件模版 -->
+	<!-- slot表示内容分发 -->
+	<!-- <script type="text/x-template" id="template">
+		<div>
+			<h1 v-if="level === 1">
+				<slot></slot>
+			</h1>
+		 
+			<h2 v-if="level === 2">
+				<slot></slot>
+			</h2>
+		 
+			<h3 v-if="level === 3">
+				<slot></slot>
+			</h3>
+		 
+			<h4 v-if="level === 4">
+				<slot></slot>
+			</h4>
+		 
+			<h5 v-if="level === 5">
+				<slot></slot>
+			</h5>
+		 
+			<h6 v-if="level === 6">
+				<slot></slot>
+			</h6>
+		</div>
+	</script> -->
+	<script type="text/javascript">
+		// Vue.component('child', {
+		// 	template: '#template',
+		// 	
+		// 	// props表示传递给这个组件的变量
+		// 	props: {
+		// 		level: {
+		// 			type: Number,
+		// 			required: true
+		// 		}
+		// 	}
+		// })
+		// new Vue({
+		// 	el: "#app"
+		// })
+		
+		// document.createElement()是在对象中创建一个对象,要与appendChild()或insertBefore方法联合使用.其中,appendChild方法在节点的子节点列表末添加新的子节点.insertBefore方法在节点的子节点列表在任意位置插入新的节点
+		Vue.component('child', {
+			render(createElement) {
+				return createElement (
+					'h' + this.level, // tag name 标签名称
+					this.$slots.default // 子组件中的阵列
+				)
+			},
+			props: {
+				level: {
+					type: Number,
+					required: true
+				}
+			}
+		})
+		new Vue({
+			el: '#app',
+			data: {
+				
+			}
+		})
+	</script>
+</html>
